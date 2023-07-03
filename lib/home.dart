@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:games/controller/homecontroller.dart';
+import 'package:games/snakegame/createpunishment.dart';
 import 'package:games/widgets/box.dart';
 import 'package:games/widgets/fiveboxinrowabove.dart';
 import 'package:games/widgets/fiveboxinrowdown.dart';
@@ -13,7 +14,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -37,7 +37,32 @@ class Home extends StatelessWidget {
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
             ),
-            0.08.sh.verticalSpace
+            0.04.sh.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.to(CreatePunishment());
+                  },
+                  child: Container(
+                    width: 0.3.sw,
+                    height: 0.18.sw,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.grey.shade800),
+                    child: Center(
+                        child: Text(
+                      "Buat Hukuman",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w800),
+                    )),
+                  ),
+                ),
+              ],
+            ),
+            0.04.sh.verticalSpace,
           ]),
         ),
         floatingActionButton: Obx(() => InkWell(
@@ -72,65 +97,3 @@ class Home extends StatelessWidget {
             )));
   }
 }
-
-//  FiveBoxInRowDown(
-//             start: 100,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 91,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 90,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 81,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 80,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 71,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 70,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 61,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 60,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 51,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 50,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 41,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 40,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 31,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 30,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 21,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 20,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 11,
-//           ),
-//           FiveBoxInRowDown(
-//             start: 10,
-//           ),
-//           FiveBoxInRowAbove(
-//             start: 1,
-//           ),
-          
