@@ -42,19 +42,28 @@ class Home extends StatelessWidget {
         ),
         floatingActionButton: Obx(() => InkWell(
               onTap: () {
-                _homeController.rolldice();
+                _homeController.diceCondition.value == 100 ||
+                        _homeController.diceConditionf.value == 100
+                    ? _homeController.reset()
+                    : _homeController.rolldice();
               },
               child: Container(
                 width: 0.18.sw,
                 height: 0.18.sw,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: _homeController.player.value == "f"
-                        ? Colors.pink
-                        : Colors.blue),
+                    color: _homeController.diceCondition.value == 100 ||
+                            _homeController.diceConditionf.value == 100
+                        ? Colors.grey.shade400
+                        : _homeController.player.value == "f"
+                            ? Colors.pink
+                            : Colors.blue),
                 child: Center(
                     child: Text(
-                  "Kocok Dadu",
+                  _homeController.diceCondition.value == 100 ||
+                          _homeController.diceConditionf.value == 100
+                      ? "Reset"
+                      : "Kocok Dadu",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w800),

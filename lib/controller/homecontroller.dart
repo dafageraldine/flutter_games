@@ -34,6 +34,18 @@ class HomeController extends GetxController {
 
   void getPunishment() {}
 
+  void reset() {
+    diceCondition.value = 0;
+    diceConditionf.value = 0;
+    final random = Random();
+    var gender = 1 + random.nextInt(2 - 1 + 1);
+    if (gender == 1) {
+      player.value = "f";
+    } else {
+      player.value = "m";
+    }
+  }
+
   void rolldice() {
     if (player.value == "f") {
       final random = Random();
