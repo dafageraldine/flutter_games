@@ -6,6 +6,7 @@ import 'package:games/widgets/box.dart';
 import 'package:games/widgets/fiveboxinrowabove.dart';
 import 'package:games/widgets/fiveboxinrowdown.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -17,54 +18,92 @@ class Home extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          child: Column(children: [
-            0.04.sh.verticalSpace,
-            ListView.builder(
-              itemBuilder: (c, i) {
-                return _homeController.listNumber[i] % 2 == 0
-                    ? Obx(() => FiveBoxInRowDown(
-                        start: _homeController.listNumber[i],
-                        diceCondition: _homeController.diceCondition.value,
-                        diceConditionf: _homeController.diceConditionf.value,
-                        listnumber: _homeController.listNumberpunishment))
-                    : Obx(() => FiveBoxInRowAbove(
-                        start: _homeController.listNumber[i],
-                        diceCondition: _homeController.diceCondition.value,
-                        diceConditionf: _homeController.diceConditionf.value,
-                        listnumber: _homeController.listNumberpunishment));
-              },
-              itemCount: _homeController.listNumber.length,
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-            ),
-            0.04.sh.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {
-                    // _homeController.getPunishment();
-                    Get.to(CreatePunishment());
+          child: Stack(
+            children: [
+              Column(children: [
+                0.04.sh.verticalSpace,
+                ListView.builder(
+                  itemBuilder: (c, i) {
+                    return _homeController.listNumber[i] % 2 == 0
+                        ? Obx(() => FiveBoxInRowDown(
+                            start: _homeController.listNumber[i],
+                            diceCondition: _homeController.diceCondition.value,
+                            diceConditionf:
+                                _homeController.diceConditionf.value,
+                            listnumber: _homeController.listNumberpunishment))
+                        : Obx(() => FiveBoxInRowAbove(
+                            start: _homeController.listNumber[i],
+                            diceCondition: _homeController.diceCondition.value,
+                            diceConditionf:
+                                _homeController.diceConditionf.value,
+                            listnumber: _homeController.listNumberpunishment));
                   },
-                  child: Container(
-                    width: 0.3.sw,
-                    height: 0.18.sw,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey.shade800),
-                    child: Center(
-                        child: Text(
-                      "Buat Hukuman",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w800),
-                    )),
-                  ),
+                  itemCount: _homeController.listNumber.length,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
                 ),
-              ],
-            ),
-            0.04.sh.verticalSpace,
-          ]),
+                0.04.sh.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        // _homeController.getPunishment();
+                        Get.to(CreatePunishment());
+                      },
+                      child: Container(
+                        width: 0.3.sw,
+                        height: 0.18.sw,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey.shade800),
+                        child: Center(
+                            child: Text(
+                          "Buat Hukuman",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w800),
+                        )),
+                      ),
+                    ),
+                  ],
+                ),
+                0.04.sh.verticalSpace,
+              ]),
+              _homeController.diceCondition.value == 100 ||
+                      _homeController.diceConditionf.value == 100
+                  ? Padding(
+                      padding: EdgeInsets.all(1.0),
+                      child: Center(
+                          child: Lottie.asset("assets/lottie/fireworks.json")),
+                    )
+                  : 0.0.sw.verticalSpace,
+              _homeController.diceCondition.value == 100 ||
+                      _homeController.diceConditionf.value == 100
+                  ? Padding(
+                      padding: EdgeInsets.only(top: 0.4.sh),
+                      child: Center(
+                          child: Lottie.asset("assets/lottie/fireworks.json")),
+                    )
+                  : 0.0.verticalSpace,
+              _homeController.diceCondition.value == 100 ||
+                      _homeController.diceConditionf.value == 100
+                  ? Padding(
+                      padding: EdgeInsets.only(top: 0.8.sh),
+                      child: Center(
+                          child: Lottie.asset("assets/lottie/fireworks.json")),
+                    )
+                  : 0.0.verticalSpace,
+              _homeController.diceCondition.value == 100 ||
+                      _homeController.diceConditionf.value == 100
+                  ? Padding(
+                      padding: EdgeInsets.only(top: 1.2.sh),
+                      child: Center(
+                          child: Lottie.asset("assets/lottie/fireworks.json")),
+                    )
+                  : 0.0.verticalSpace,
+            ],
+          ),
         ),
         floatingActionButton: Obx(() => InkWell(
               onTap: () {
@@ -72,6 +111,7 @@ class Home extends StatelessWidget {
                         _homeController.diceConditionf.value == 100
                     ? _homeController.reset()
                     : _homeController.rolldice();
+                // _homeController.showAlertDialog();
               },
               child: Container(
                 width: 0.18.sw,

@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:games/widgets/diceroller.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../const.dart';
 
@@ -35,6 +37,16 @@ class HomeController extends GetxController {
   RxList listpunishmentf = [].obs;
   RxList listpunishmentm = [].obs;
   Rx<TextEditingController> punish = TextEditingController().obs;
+
+  showDiceAnimation(int dice, bool bools) {
+    Get.dialog(
+        AlertDialog(
+          content: DiceRoller(
+            dice: dice,
+          ),
+        ),
+        barrierDismissible: bools);
+  }
 
   void getPunishment() {
     try {
@@ -79,22 +91,22 @@ class HomeController extends GetxController {
     }
   }
 
-  void rolldice() {
+  Future<void> rolldice() async {
     if (listpunishmentf.value.isEmpty || listpunishmentm.value.isEmpty) {
       Get.snackbar("error", "buat hukuman dahulu !",
           backgroundColor: errwithopacity);
       return;
     }
+    showDiceAnimation(0, false);
+    await Future.delayed(Duration(seconds: 2));
+    Get.back();
     if (player.value == "f") {
       final random = Random();
       var adder = 1 + random.nextInt(6 - 1 + 1);
       if ((diceConditionf.value + adder) <= 100) {
         diceConditionf.value = diceConditionf.value + adder;
       }
-      // if (diceCondition.value > 100) {
-      //   diceCondition.value =
-      //       diceCondition.value - ((diceCondition.value - 100) * 2);
-      // }
+      showDiceAnimation(adder, true);
       if (adder != 6) {
         player.value = "m";
       }
@@ -107,10 +119,7 @@ class HomeController extends GetxController {
       if ((diceCondition.value + adder) <= 100) {
         diceCondition.value = diceCondition.value + adder;
       }
-      // if (diceCondition.value > 100) {
-      //   diceCondition.value =
-      //       diceCondition.value - ((diceCondition.value - 100) * 2);
-      // }
+      showDiceAnimation(adder, true);
       if (adder != 6) {
         player.value = "f";
       }
