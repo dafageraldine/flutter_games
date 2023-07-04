@@ -18,25 +18,26 @@ class Home extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          child: Stack(
+            child: Obx(
+          () => Stack(
             children: [
               Column(children: [
                 0.04.sh.verticalSpace,
                 ListView.builder(
                   itemBuilder: (c, i) {
                     return _homeController.listNumber[i] % 2 == 0
-                        ? Obx(() => FiveBoxInRowDown(
+                        ? FiveBoxInRowDown(
                             start: _homeController.listNumber[i],
                             diceCondition: _homeController.diceCondition.value,
                             diceConditionf:
                                 _homeController.diceConditionf.value,
-                            listnumber: _homeController.listNumberpunishment))
-                        : Obx(() => FiveBoxInRowAbove(
+                            listnumber: _homeController.listNumberpunishment)
+                        : FiveBoxInRowAbove(
                             start: _homeController.listNumber[i],
                             diceCondition: _homeController.diceCondition.value,
                             diceConditionf:
                                 _homeController.diceConditionf.value,
-                            listnumber: _homeController.listNumberpunishment));
+                            listnumber: _homeController.listNumberpunishment);
                   },
                   itemCount: _homeController.listNumber.length,
                   shrinkWrap: true,
@@ -104,7 +105,7 @@ class Home extends StatelessWidget {
                   : 0.0.verticalSpace,
             ],
           ),
-        ),
+        )),
         floatingActionButton: Obx(() => InkWell(
               onTap: () {
                 _homeController.diceCondition.value == 100 ||
