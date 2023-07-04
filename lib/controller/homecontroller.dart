@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../const.dart';
+
 class HomeController extends GetxController {
   var listNumber = [
     100,
@@ -35,16 +37,33 @@ class HomeController extends GetxController {
   Rx<TextEditingController> punish = TextEditingController().obs;
 
   void getPunishment() {
-    print(listpunishmentf.value);
+    try {
+      final random = Random();
+      var idx = 0;
+      if (player.value == "m") {
+        idx = random.nextInt(listpunishmentm.value.length - 1 + 1);
+        print(listpunishmentm.value[idx]);
+      } else {
+        idx = random.nextInt(listpunishmentf.value.length - 1 + 1);
+        print(listpunishmentf.value[idx]);
+      }
+    } catch (e) {
+      Get.snackbar("error", "hukuman Tidak Ditemukan !",
+          backgroundColor: errwithopacity);
+    }
   }
 
   void createPunishment(hukuman, jenis) {
     if ("f" == jenis) {
       listpunishmentf.add(hukuman);
       punish.value.clear();
+      Get.snackbar("success", "hukuman berhasil dibuat !",
+          backgroundColor: Colors.white);
     } else {
       listpunishmentm.add(hukuman);
       punish.value.clear();
+      Get.snackbar("success", "hukuman berhasil dibuat !",
+          backgroundColor: Colors.white);
     }
   }
 
@@ -61,6 +80,11 @@ class HomeController extends GetxController {
   }
 
   void rolldice() {
+    if (listpunishmentf.value.isEmpty || listpunishmentm.value.isEmpty) {
+      Get.snackbar("error", "buat hukuman dahulu !",
+          backgroundColor: errwithopacity);
+      return;
+    }
     if (player.value == "f") {
       final random = Random();
       var adder = 1 + random.nextInt(6 - 1 + 1);
@@ -74,8 +98,9 @@ class HomeController extends GetxController {
       if (adder != 6) {
         player.value = "m";
       }
-      print(adder);
-      print(diceConditionf.value);
+      if (listNumberpunishment.contains(diceConditionf.value)) {
+        getPunishment();
+      }
     } else {
       final random = Random();
       var adder = 1 + random.nextInt(6 - 1 + 1);
@@ -89,8 +114,9 @@ class HomeController extends GetxController {
       if (adder != 6) {
         player.value = "f";
       }
-      print(adder);
-      print(diceCondition.value);
+      if (listNumberpunishment.contains(diceCondition.value)) {
+        getPunishment();
+      }
     }
   }
 }
