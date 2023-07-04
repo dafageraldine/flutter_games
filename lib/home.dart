@@ -43,6 +43,7 @@ class Home extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
+                    // _homeController.getPunishment();
                     Get.to(CreatePunishment());
                   },
                   child: Container(

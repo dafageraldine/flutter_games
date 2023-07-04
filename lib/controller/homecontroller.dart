@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -31,8 +32,21 @@ class HomeController extends GetxController {
   var listNumberpunishment = [4, 13, 25, 37, 60, 72, 84];
   RxList listpunishmentf = [].obs;
   RxList listpunishmentm = [].obs;
+  Rx<TextEditingController> punish = TextEditingController().obs;
 
-  void getPunishment() {}
+  void getPunishment() {
+    print(listpunishmentf.value);
+  }
+
+  void createPunishment(hukuman, jenis) {
+    if ("f" == jenis) {
+      listpunishmentf.add(hukuman);
+      punish.value.clear();
+    } else {
+      listpunishmentm.add(hukuman);
+      punish.value.clear();
+    }
+  }
 
   void reset() {
     diceCondition.value = 0;

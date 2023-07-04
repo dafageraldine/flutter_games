@@ -19,11 +19,9 @@ class CreatePunishment extends StatelessWidget {
           children: [
             AppBarOnly(),
             Padding(
-              padding: EdgeInsets.only(
-                top: 0.02.sh,
-              ),
+              padding: EdgeInsets.only(top: 0.02.sh, left: 0.1.sw),
               child: const Text(
-                "Value",
+                "Hukuman",
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Color.fromRGBO(157, 157, 157, 1),
@@ -31,25 +29,75 @@ class CreatePunishment extends StatelessWidget {
                 ),
               ),
             ),
+            Obx(
+              () => Padding(
+                  padding: EdgeInsets.only(top: 0.02.sh, left: 0.1.sw),
+                  child: SizedBox(
+                    width: 0.8.sw,
+                    height: 0.07.sh,
+                    child: TextFormField(
+                        controller: _homeController.punish.value,
+                        // obscureText: true,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintStyle: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromRGBO(157, 157, 157, 0.5),
+                              fontSize: 16,
+                            ),
+                            hintText: "makan cabe")),
+                  )),
+            ),
             Padding(
-                padding: EdgeInsets.only(
-                  top: 0.02.sh,
-                ),
-                child: SizedBox(
-                  width: 0.85.sw,
+              padding: EdgeInsets.only(top: 0.02.sh, left: 0.1.sw),
+              child: InkWell(
+                onTap: () {
+                  _homeController.createPunishment(
+                      _homeController.punish.value.text, "f");
+                },
+                child: Container(
+                  width: 0.8.sw,
                   height: 0.07.sh,
-                  child: TextFormField(
-                      // controller: _recordController.values.value,
-                      // obscureText: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintStyle: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Color.fromRGBO(157, 157, 157, 0.5),
-                            fontSize: 16,
-                          ),
-                          hintText: "15000000.00")),
-                )),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.pink),
+                  child: Center(
+                    child: Text(
+                      "Simpan",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 0.02.sh, left: 0.1.sw),
+              child: InkWell(
+                onTap: () {
+                  _homeController.createPunishment(
+                      _homeController.punish.value.text, "m");
+                },
+                child: Container(
+                  width: 0.8.sw,
+                  height: 0.07.sh,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                  child: Center(
+                    child: Text(
+                      "Simpan",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ]),
     );
   }
