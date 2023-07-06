@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:games/widgets/diceroller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../const.dart';
 
@@ -33,7 +32,21 @@ class HomeController extends GetxController {
   RxInt diceCondition = 0.obs;
   RxInt diceConditionf = 0.obs;
   RxString player = "m".obs;
-  var listNumberpunishment = [4, 13, 25, 37, 60, 72, 84, 98, 89, 42];
+  var listNumberpunishment = [
+    4,
+    13,
+    25,
+    37,
+    60,
+    72,
+    84,
+    98,
+    89,
+    42,
+    30,
+    54,
+    67
+  ];
   RxList listpunishmentf = [].obs;
   RxList listpunishmentm = [].obs;
   Rx<TextEditingController> punish = TextEditingController().obs;
@@ -98,7 +111,7 @@ class HomeController extends GetxController {
       return;
     }
     showDiceAnimation(0, false);
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     Get.back();
     if (player.value == "f") {
       final random = Random();

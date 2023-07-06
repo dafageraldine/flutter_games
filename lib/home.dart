@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:games/controller/homecontroller.dart';
 import 'package:games/snakegame/createpunishment.dart';
-import 'package:games/widgets/box.dart';
 import 'package:games/widgets/fiveboxinrowabove.dart';
 import 'package:games/widgets/fiveboxinrowdown.dart';
 import 'package:get/get.dart';
@@ -42,7 +40,7 @@ class Home extends StatelessWidget {
                   },
                   itemCount: _homeController.listNumber.length,
                   shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                 ),
                 0.04.sh.verticalSpace,
                 Row(
@@ -59,7 +57,7 @@ class Home extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey.shade800),
-                        child: Center(
+                        child: const Center(
                             child: Text(
                           "Buat Hukuman",
                           textAlign: TextAlign.center,
@@ -75,7 +73,7 @@ class Home extends StatelessWidget {
               _homeController.diceCondition.value == 100 ||
                       _homeController.diceConditionf.value == 100
                   ? Padding(
-                      padding: EdgeInsets.all(1.0),
+                      padding: const EdgeInsets.all(1.0),
                       child: Center(
                           child: Lottie.asset("assets/lottie/fireworks.json")),
                     )
@@ -104,6 +102,7 @@ class Home extends StatelessWidget {
                           child: Lottie.asset("assets/lottie/fireworks.json")),
                     )
                   : 0.0.verticalSpace,
+              //ladder
               Padding(
                 padding: EdgeInsets.only(left: 0.72.sw, top: 1.35.sh),
                 child: Image.asset(
@@ -123,9 +122,9 @@ class Home extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 0.32.sw, top: 0.53.sh),
+                padding: EdgeInsets.only(left: 0.47.sw, top: 0.53.sh),
                 child: Transform.rotate(
-                  angle: 45 * (3.1415926535 / 180),
+                  angle: 41 * (3.1415926535 / 180),
                   child: Image.asset(
                     "assets/image/stairsb.png",
                     width: 0.2.sw,
@@ -146,6 +145,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
+              //snake
               Padding(
                 padding: EdgeInsets.only(left: 0.25.sw, top: 0.095.sh),
                 child: Transform.rotate(
@@ -171,14 +171,14 @@ class Home extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 0.29.sw, top: 1.15.sh),
+                padding: EdgeInsets.only(left: 0.6.sw, top: 0.83.sh),
                 child: Transform.rotate(
                   angle: 0,
                   child: Image.asset(
                     "assets/image/snakes.png",
-                    width: 0.2.sw,
-                    height: 0.2.sh,
-                    fit: BoxFit.contain,
+                    width: 0.26.sw,
+                    height: 0.15.sh,
+                    fit: BoxFit.fill,
                   ),
                 ),
               )
@@ -211,7 +211,7 @@ class Home extends StatelessWidget {
                       ? "Reset"
                       : "Kocok Dadu",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w800),
                 )),
               ),

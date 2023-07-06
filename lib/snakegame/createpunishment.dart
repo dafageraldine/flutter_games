@@ -17,7 +17,7 @@ class CreatePunishment extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppBarOnly(),
+            const AppBarOnly(),
             Padding(
               padding: EdgeInsets.only(top: 0.02.sh, left: 0.1.sw),
               child: const Text(

@@ -8,14 +8,14 @@ class DiceRoller extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: 0.8.sw,
         height: 0.3.sh,
         child: Stack(children: [
           Center(
               child: dice == 0
                   ? Lottie.asset("assets/lottie/dice.json")
-                  : Image.asset("assets/image/dice${dice}.png"))
+                  : Image.asset("assets/image/dice$dice.png"))
         ]));
   }
 }
