@@ -34,12 +34,13 @@ class HomeController extends GetxController {
   RxString player = "m".obs;
   var listNumberpunishment = [
     4,
-    13,
+    11,
+    18,
     25,
     37,
     60,
     72,
-    84,
+    85,
     98,
     89,
     42,
@@ -54,6 +55,7 @@ class HomeController extends GetxController {
   showDiceAnimation(int dice, bool bools) {
     Get.dialog(
         AlertDialog(
+          backgroundColor: Colors.transparent,
           content: DiceRoller(
             dice: dice,
           ),

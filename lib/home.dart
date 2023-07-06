@@ -20,6 +20,33 @@ class Home extends StatelessWidget {
             child: Obx(
           () => Stack(
             children: [
+              //grass
+              Column(
+                children: [
+                  Image.asset(
+                    "assets/image/grass.png",
+                    width: 1.sw,
+                    height: 0.6.sh,
+                    fit: BoxFit.fill,
+                  ),
+                  Image.asset(
+                    "assets/image/grass.png",
+                    width: 1.sw,
+                    height: 0.6.sh,
+                    fit: BoxFit.fill,
+                  ),
+                  Transform.rotate(
+                    angle: 180 * (3.1415926535 / 180),
+                    child: Image.asset(
+                      "assets/image/grass.png",
+                      width: 1.sw,
+                      height: 0.5.sh,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ],
+              ),
+              //block
               Column(children: [
                 0.04.sh.verticalSpace,
                 ListView.builder(
@@ -70,6 +97,7 @@ class Home extends StatelessWidget {
                 ),
                 0.04.sh.verticalSpace,
               ]),
+              //fireworks
               _homeController.diceCondition.value == 100 ||
                       _homeController.diceConditionf.value == 100
                   ? Padding(
@@ -97,7 +125,7 @@ class Home extends StatelessWidget {
               _homeController.diceCondition.value == 100 ||
                       _homeController.diceConditionf.value == 100
                   ? Padding(
-                      padding: EdgeInsets.only(top: 1.2.sh),
+                      padding: EdgeInsets.only(top: 1.05.sh),
                       child: Center(
                           child: Lottie.asset("assets/lottie/fireworks.json")),
                     )
@@ -172,6 +200,30 @@ class Home extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 0.6.sw, top: 0.83.sh),
+                child: Transform.rotate(
+                  angle: 0,
+                  child: Image.asset(
+                    "assets/image/snakes.png",
+                    width: 0.26.sw,
+                    height: 0.15.sh,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.15.sw, top: 1.2.sh),
+                child: Transform.rotate(
+                  angle: 0,
+                  child: Image.asset(
+                    "assets/image/snakes.png",
+                    width: 0.26.sw,
+                    height: 0.15.sh,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.15.sw, top: 0.615.sh),
                 child: Transform.rotate(
                   angle: 0,
                   child: Image.asset(
