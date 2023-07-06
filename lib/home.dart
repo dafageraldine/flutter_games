@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:games/controller/homecontroller.dart';
 import 'package:games/snakegame/createpunishment.dart';
 import 'package:games/widgets/box.dart';
@@ -103,6 +104,84 @@ class Home extends StatelessWidget {
                           child: Lottie.asset("assets/lottie/fireworks.json")),
                     )
                   : 0.0.verticalSpace,
+              Padding(
+                padding: EdgeInsets.only(left: 0.72.sw, top: 1.35.sh),
+                child: Image.asset(
+                  "assets/image/stairsl.png",
+                  width: 0.16.sw,
+                  height: 0.12.sh,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.22.sw, top: 0.9.sh),
+                child: Image.asset(
+                  "assets/image/stairsb.png",
+                  width: 0.26.sw,
+                  height: 0.22.sh,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.32.sw, top: 0.53.sh),
+                child: Transform.rotate(
+                  angle: 45 * (3.1415926535 / 180),
+                  child: Image.asset(
+                    "assets/image/stairsb.png",
+                    width: 0.2.sw,
+                    height: 0.26.sh,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.63.sw, top: 0.1.sh),
+                child: Transform.rotate(
+                  angle: -45 * (3.1415926535 / 180),
+                  child: Image.asset(
+                    "assets/image/stairsb.png",
+                    width: 0.2.sw,
+                    height: 0.26.sh,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.25.sw, top: 0.095.sh),
+                child: Transform.rotate(
+                  angle: -45 * (3.1415926535 / 180),
+                  child: Image.asset(
+                    "assets/image/snakes.png",
+                    width: 0.2.sw,
+                    height: 0.2.sh,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.35.sw, top: 0.35.sh),
+                child: Transform.rotate(
+                  angle: 0,
+                  child: Image.asset(
+                    "assets/image/snakes.png",
+                    width: 0.2.sw,
+                    height: 0.2.sh,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0.29.sw, top: 1.15.sh),
+                child: Transform.rotate(
+                  angle: 0,
+                  child: Image.asset(
+                    "assets/image/snakes.png",
+                    width: 0.2.sw,
+                    height: 0.2.sh,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              )
             ],
           ),
         )),

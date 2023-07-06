@@ -33,7 +33,7 @@ class HomeController extends GetxController {
   RxInt diceCondition = 0.obs;
   RxInt diceConditionf = 0.obs;
   RxString player = "m".obs;
-  var listNumberpunishment = [4, 13, 25, 37, 60, 72, 84];
+  var listNumberpunishment = [4, 13, 25, 37, 60, 72, 84, 98, 89, 42];
   RxList listpunishmentf = [].obs;
   RxList listpunishmentm = [].obs;
   Rx<TextEditingController> punish = TextEditingController().obs;
