@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:games/controller/homecontroller.dart';
+import 'package:games/controller/snakeGamecontroller.dart';
 import 'package:games/widgets/appbaronly.dart';
 import 'package:get/get.dart';
 
 class CreatePunishment extends StatelessWidget {
   CreatePunishment({super.key});
 
-  final HomeController _homeController = Get.find();
+  final SnakeGameController _homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {

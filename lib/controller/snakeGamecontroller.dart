@@ -1,13 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:games/model/laddersnake.dart';
 import 'package:games/widgets/diceroller.dart';
 import 'package:get/get.dart';
+import '../model/const.dart';
 
-import '../const.dart';
-
-class HomeController extends GetxController {
+class SnakeGameController extends GetxController {
   var listNumber = [
     100,
     91,

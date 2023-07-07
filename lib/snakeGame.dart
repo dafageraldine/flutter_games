@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:games/controller/homecontroller.dart';
+import 'package:games/controller/snakeGamecontroller.dart';
 import 'package:games/snakegame/createpunishment.dart';
 import 'package:games/widgets/fiveboxinrowabove.dart';
 import 'package:games/widgets/fiveboxinrowdown.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class snakeGame extends StatelessWidget {
+  snakeGame({super.key});
 
-  final HomeController _homeController = Get.put(HomeController());
+  final SnakeGameController _snakeGameController =
+      Get.put(SnakeGameController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,21 +52,25 @@ class Home extends StatelessWidget {
                 0.04.sh.verticalSpace,
                 ListView.builder(
                   itemBuilder: (c, i) {
-                    return _homeController.listNumber[i] % 2 == 0
+                    return _snakeGameController.listNumber[i] % 2 == 0
                         ? FiveBoxInRowDown(
-                            start: _homeController.listNumber[i],
-                            diceCondition: _homeController.diceCondition.value,
+                            start: _snakeGameController.listNumber[i],
+                            diceCondition:
+                                _snakeGameController.diceCondition.value,
                             diceConditionf:
-                                _homeController.diceConditionf.value,
-                            listnumber: _homeController.listNumberpunishment)
+                                _snakeGameController.diceConditionf.value,
+                            listnumber:
+                                _snakeGameController.listNumberpunishment)
                         : FiveBoxInRowAbove(
-                            start: _homeController.listNumber[i],
-                            diceCondition: _homeController.diceCondition.value,
+                            start: _snakeGameController.listNumber[i],
+                            diceCondition:
+                                _snakeGameController.diceCondition.value,
                             diceConditionf:
-                                _homeController.diceConditionf.value,
-                            listnumber: _homeController.listNumberpunishment);
+                                _snakeGameController.diceConditionf.value,
+                            listnumber:
+                                _snakeGameController.listNumberpunishment);
                   },
-                  itemCount: _homeController.listNumber.length,
+                  itemCount: _snakeGameController.listNumber.length,
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                 ),
@@ -75,7 +80,7 @@ class Home extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        // _homeController.getPunishment();
+                        // _snakeGameController.getPunishment();
                         Get.to(CreatePunishment());
                       },
                       child: Container(
@@ -98,32 +103,32 @@ class Home extends StatelessWidget {
                 0.04.sh.verticalSpace,
               ]),
               //fireworks
-              _homeController.diceCondition.value == 100 ||
-                      _homeController.diceConditionf.value == 100
+              _snakeGameController.diceCondition.value == 100 ||
+                      _snakeGameController.diceConditionf.value == 100
                   ? Padding(
                       padding: const EdgeInsets.all(1.0),
                       child: Center(
                           child: Lottie.asset("assets/lottie/fireworks.json")),
                     )
                   : 0.0.sw.verticalSpace,
-              _homeController.diceCondition.value == 100 ||
-                      _homeController.diceConditionf.value == 100
+              _snakeGameController.diceCondition.value == 100 ||
+                      _snakeGameController.diceConditionf.value == 100
                   ? Padding(
                       padding: EdgeInsets.only(top: 0.4.sh),
                       child: Center(
                           child: Lottie.asset("assets/lottie/fireworks.json")),
                     )
                   : 0.0.verticalSpace,
-              _homeController.diceCondition.value == 100 ||
-                      _homeController.diceConditionf.value == 100
+              _snakeGameController.diceCondition.value == 100 ||
+                      _snakeGameController.diceConditionf.value == 100
                   ? Padding(
                       padding: EdgeInsets.only(top: 0.8.sh),
                       child: Center(
                           child: Lottie.asset("assets/lottie/fireworks.json")),
                     )
                   : 0.0.verticalSpace,
-              _homeController.diceCondition.value == 100 ||
-                      _homeController.diceConditionf.value == 100
+              _snakeGameController.diceCondition.value == 100 ||
+                      _snakeGameController.diceConditionf.value == 100
                   ? Padding(
                       padding: EdgeInsets.only(top: 1.05.sh),
                       child: Center(
@@ -239,27 +244,27 @@ class Home extends StatelessWidget {
         )),
         floatingActionButton: Obx(() => InkWell(
               onTap: () {
-                _homeController.diceCondition.value == 100 ||
-                        _homeController.diceConditionf.value == 100
-                    ? _homeController.reset()
-                    : _homeController.rolldice();
-                // _homeController.showAlertDialog();
+                _snakeGameController.diceCondition.value == 100 ||
+                        _snakeGameController.diceConditionf.value == 100
+                    ? _snakeGameController.reset()
+                    : _snakeGameController.rolldice();
+                // _snakeGameController.showAlertDialog();
               },
               child: Container(
                 width: 0.18.sw,
                 height: 0.18.sw,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: _homeController.diceCondition.value == 100 ||
-                            _homeController.diceConditionf.value == 100
+                    color: _snakeGameController.diceCondition.value == 100 ||
+                            _snakeGameController.diceConditionf.value == 100
                         ? Colors.grey.shade400
-                        : _homeController.player.value == "f"
+                        : _snakeGameController.player.value == "f"
                             ? Colors.pink
                             : Colors.blue),
                 child: Center(
                     child: Text(
-                  _homeController.diceCondition.value == 100 ||
-                          _homeController.diceConditionf.value == 100
+                  _snakeGameController.diceCondition.value == 100 ||
+                          _snakeGameController.diceConditionf.value == 100
                       ? "Reset"
                       : "Kocok Dadu",
                   textAlign: TextAlign.center,
