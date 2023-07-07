@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:games/model/laddersnake.dart';
 import 'package:games/widgets/diceroller.dart';
+import 'package:games/widgets/punishmentdialog.dart';
 import 'package:get/get.dart';
 import '../model/const.dart';
 
@@ -31,6 +32,7 @@ class SnakeGameController extends GetxController {
   RxInt diceCondition = 0.obs;
   RxInt diceConditionf = 0.obs;
   RxString player = "m".obs;
+  RxInt blinkSnake = 0.obs;
   var listNumberpunishment = [
     4,
     11,
@@ -75,16 +77,26 @@ class SnakeGameController extends GetxController {
         barrierDismissible: bools);
   }
 
+  void showPunishment(String msg) {
+    Get.dialog(
+        AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: PunishmentDialog(
+              msg: msg,
+            )),
+        barrierDismissible: true);
+  }
+
   void getPunishment() {
     try {
       final random = Random();
       var idx = 0;
       if (player.value == "m") {
         idx = random.nextInt(listpunishmentf.value.length - 1 + 1);
-        print(listpunishmentf.value[idx]);
+        showPunishment(listpunishmentf.value[idx]);
       } else {
         idx = random.nextInt(listpunishmentm.value.length - 1 + 1);
-        print(listpunishmentm.value[idx]);
+        showPunishment(listpunishmentm.value[idx]);
       }
     } catch (e) {
       Get.snackbar("error", "hukuman Tidak Ditemukan !",
@@ -118,7 +130,7 @@ class SnakeGameController extends GetxController {
     }
   }
 
-  void snakeOrladder() {
+  Future<void> snakeOrladder() async {
     var flag = 0;
     for (var i = 0; i < listLadder.length; i++) {
       if (player.value == "f") {
@@ -139,17 +151,30 @@ class SnakeGameController extends GetxController {
       for (var i = 0; i < listSnake.length; i++) {
         if (player.value == 'f') {
           if (diceConditionf.value == listSnake[i].firstPos) {
+            blinkSnake.value = 1;
+            await Future.delayed(const Duration(milliseconds: 800));
+            blinkSnake.value = 0;
             diceConditionf.value = listSnake[i].goto;
             break;
           }
         } else {
           if (diceCondition.value == listSnake[i].firstPos) {
+            blinkSnake.value = 1;
+            await Future.delayed(const Duration(milliseconds: 800));
+            blinkSnake.value = 0;
             diceCondition.value = listSnake[i].goto;
             break;
           }
         }
       }
     }
+  }
+
+  void resetPunishment() {
+    listpunishmentf.value.clear();
+    listpunishmentm.value.clear();
+    Get.snackbar("success", "hukuman berhasil direset !",
+        backgroundColor: Colors.white);
   }
 
   Future<void> rolldice() async {

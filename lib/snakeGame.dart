@@ -183,11 +183,24 @@ class snakeGame extends StatelessWidget {
                 padding: EdgeInsets.only(left: 0.25.sw, top: 0.095.sh),
                 child: Transform.rotate(
                   angle: -45 * (3.1415926535 / 180),
-                  child: Image.asset(
-                    "assets/image/snakes.png",
-                    width: 0.2.sw,
-                    height: 0.2.sh,
-                    fit: BoxFit.contain,
+                  child: AnimatedOpacity(
+                    opacity: (_snakeGameController.diceCondition.value == 99 ||
+                                _snakeGameController.diceConditionf.value ==
+                                    99) &&
+                            _snakeGameController.blinkSnake.value == 1
+                        ? 0
+                        : 1,
+                    duration: const Duration(milliseconds: 500),
+                    child: Image.asset(
+                      "assets/image/snakes.png",
+                      // color: _snakeGameController.diceCondition.value == 99 ||
+                      //         _snakeGameController.diceConditionf.value == 99
+                      //     ? Colors.redAccent
+                      //     : null,
+                      width: 0.2.sw,
+                      height: 0.2.sh,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
@@ -195,11 +208,20 @@ class snakeGame extends StatelessWidget {
                 padding: EdgeInsets.only(left: 0.35.sw, top: 0.35.sh),
                 child: Transform.rotate(
                   angle: 0,
-                  child: Image.asset(
-                    "assets/image/snakes.png",
-                    width: 0.2.sw,
-                    height: 0.2.sh,
-                    fit: BoxFit.contain,
+                  child: AnimatedOpacity(
+                    opacity: (_snakeGameController.diceCondition.value == 78 ||
+                                _snakeGameController.diceConditionf.value ==
+                                    78) &&
+                            _snakeGameController.blinkSnake.value == 1
+                        ? 0
+                        : 1,
+                    duration: const Duration(milliseconds: 500),
+                    child: Image.asset(
+                      "assets/image/snakes.png",
+                      width: 0.2.sw,
+                      height: 0.2.sh,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
@@ -207,11 +229,20 @@ class snakeGame extends StatelessWidget {
                 padding: EdgeInsets.only(left: 0.6.sw, top: 0.83.sh),
                 child: Transform.rotate(
                   angle: 0,
-                  child: Image.asset(
-                    "assets/image/snakes.png",
-                    width: 0.26.sw,
-                    height: 0.15.sh,
-                    fit: BoxFit.fill,
+                  child: AnimatedOpacity(
+                    opacity: (_snakeGameController.diceCondition.value == 46 ||
+                                _snakeGameController.diceConditionf.value ==
+                                    46) &&
+                            _snakeGameController.blinkSnake.value == 1
+                        ? 0
+                        : 1,
+                    duration: const Duration(milliseconds: 500),
+                    child: Image.asset(
+                      "assets/image/snakes.png",
+                      width: 0.26.sw,
+                      height: 0.15.sh,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
@@ -219,11 +250,20 @@ class snakeGame extends StatelessWidget {
                 padding: EdgeInsets.only(left: 0.15.sw, top: 1.2.sh),
                 child: Transform.rotate(
                   angle: 0,
-                  child: Image.asset(
-                    "assets/image/snakes.png",
-                    width: 0.26.sw,
-                    height: 0.15.sh,
-                    fit: BoxFit.fill,
+                  child: AnimatedOpacity(
+                    opacity: (_snakeGameController.diceCondition.value == 22 ||
+                                _snakeGameController.diceConditionf.value ==
+                                    22) &&
+                            _snakeGameController.blinkSnake.value == 1
+                        ? 0
+                        : 1,
+                    duration: const Duration(milliseconds: 500),
+                    child: Image.asset(
+                      "assets/image/snakes.png",
+                      width: 0.26.sw,
+                      height: 0.15.sh,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
@@ -231,11 +271,20 @@ class snakeGame extends StatelessWidget {
                 padding: EdgeInsets.only(left: 0.15.sw, top: 0.615.sh),
                 child: Transform.rotate(
                   angle: 0,
-                  child: Image.asset(
-                    "assets/image/snakes.png",
-                    width: 0.26.sw,
-                    height: 0.15.sh,
-                    fit: BoxFit.fill,
+                  child: AnimatedOpacity(
+                    opacity: (_snakeGameController.diceCondition.value == 62 ||
+                                _snakeGameController.diceConditionf.value ==
+                                    62) &&
+                            _snakeGameController.blinkSnake.value == 1
+                        ? 0
+                        : 1,
+                    duration: const Duration(milliseconds: 500),
+                    child: Image.asset(
+                      "assets/image/snakes.png",
+                      width: 0.26.sw,
+                      height: 0.15.sh,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               )
