@@ -293,10 +293,13 @@ class snakeGame extends StatelessWidget {
         )),
         floatingActionButton: Obx(() => InkWell(
               onTap: () {
-                _snakeGameController.diceCondition.value == 100 ||
-                        _snakeGameController.diceConditionf.value == 100
-                    ? _snakeGameController.reset()
-                    : _snakeGameController.rolldice();
+                if (_snakeGameController.isPause.value != 1) {
+                  _snakeGameController.diceCondition.value == 100 ||
+                          _snakeGameController.diceConditionf.value == 100
+                      ? _snakeGameController.reset()
+                      : _snakeGameController.rolldice();
+                }
+
                 // _snakeGameController.showAlertDialog();
               },
               child: Container(

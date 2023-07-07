@@ -32,6 +32,7 @@ class SnakeGameController extends GetxController {
   RxInt diceCondition = 0.obs;
   RxInt diceConditionf = 0.obs;
   RxString player = "m".obs;
+  RxInt isPause = 0.obs;
   RxInt blinkSnake = 0.obs;
   var listNumberpunishment = [
     4,
@@ -84,7 +85,7 @@ class SnakeGameController extends GetxController {
             content: PunishmentDialog(
               msg: msg,
             )),
-        barrierDismissible: true);
+        barrierDismissible: false);
   }
 
   void getPunishment() {
@@ -183,6 +184,7 @@ class SnakeGameController extends GetxController {
           backgroundColor: errwithopacity);
       return;
     }
+    isPause.value = 1;
     showDiceAnimation(0, false);
     await Future.delayed(const Duration(seconds: 2));
     Get.back();
@@ -201,7 +203,7 @@ class SnakeGameController extends GetxController {
         }
       }
       //checking is there any ladder or snake
-      snakeOrladder();
+      await snakeOrladder();
       //check is is a punishment number
       if (listNumberpunishment.contains(diceConditionf.value)) {
         getPunishment();
@@ -210,6 +212,7 @@ class SnakeGameController extends GetxController {
       if (adder != 6) {
         player.value = "m";
       }
+      isPause.value = 0;
     } else {
       //show diceanimation
       final random = Random();
@@ -225,7 +228,7 @@ class SnakeGameController extends GetxController {
         // diceCondition.value = diceCondition.value + adder;
       }
       //checking is there any ladder or snake
-      snakeOrladder();
+      await snakeOrladder();
       //check is is a punishment number
       if (listNumberpunishment.contains(diceCondition.value)) {
         getPunishment();
@@ -234,6 +237,7 @@ class SnakeGameController extends GetxController {
       if (adder != 6) {
         player.value = "f";
       }
+      isPause.value = 0;
     }
   }
 }
