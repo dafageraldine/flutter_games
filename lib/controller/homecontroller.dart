@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:games/model/laddersnake.dart';
 import 'package:games/widgets/diceroller.dart';
 import 'package:get/get.dart';
 
@@ -51,8 +52,21 @@ class HomeController extends GetxController {
   RxList listpunishmentf = [].obs;
   RxList listpunishmentm = [].obs;
   Rx<TextEditingController> punish = TextEditingController().obs;
+  List<LadderSnake> listLadder = <LadderSnake>[
+    LadderSnake(5, 15),
+    LadderSnake(29, 42),
+    LadderSnake(58, 64),
+    LadderSnake(86, 94)
+  ];
+  List<LadderSnake> listSnake = <LadderSnake>[
+    LadderSnake(22, 11),
+    LadderSnake(46, 37),
+    LadderSnake(62, 51),
+    LadderSnake(78, 72),
+    LadderSnake(99, 89)
+  ];
 
-  showDiceAnimation(int dice, bool bools) {
+  void showDiceAnimation(int dice, bool bools) {
     Get.dialog(
         AlertDialog(
           backgroundColor: Colors.transparent,
@@ -68,11 +82,11 @@ class HomeController extends GetxController {
       final random = Random();
       var idx = 0;
       if (player.value == "m") {
-        idx = random.nextInt(listpunishmentm.value.length - 1 + 1);
-        print(listpunishmentm.value[idx]);
-      } else {
         idx = random.nextInt(listpunishmentf.value.length - 1 + 1);
         print(listpunishmentf.value[idx]);
+      } else {
+        idx = random.nextInt(listpunishmentm.value.length - 1 + 1);
+        print(listpunishmentm.value[idx]);
       }
     } catch (e) {
       Get.snackbar("error", "hukuman Tidak Ditemukan !",
@@ -106,6 +120,40 @@ class HomeController extends GetxController {
     }
   }
 
+  void snakeOrladder() {
+    var flag = 0;
+    for (var i = 0; i < listLadder.length; i++) {
+      if (player.value == "f") {
+        if (diceConditionf.value == listLadder[i].firstPos) {
+          flag == 1;
+          diceConditionf.value = listLadder[i].goto;
+          break;
+        }
+      } else {
+        if (diceCondition.value == listLadder[i].firstPos) {
+          flag == 1;
+          diceCondition.value = listLadder[i].goto;
+          break;
+        }
+      }
+    }
+    if (flag == 0) {
+      for (var i = 0; i < listSnake.length; i++) {
+        if (player.value == 'f') {
+          if (diceConditionf.value == listSnake[i].firstPos) {
+            diceConditionf.value = listSnake[i].goto;
+            break;
+          }
+        } else {
+          if (diceCondition.value == listSnake[i].firstPos) {
+            diceCondition.value = listSnake[i].goto;
+            break;
+          }
+        }
+      }
+    }
+  }
+
   Future<void> rolldice() async {
     if (listpunishmentf.value.isEmpty || listpunishmentm.value.isEmpty) {
       Get.snackbar("error", "buat hukuman dahulu !",
@@ -115,31 +163,53 @@ class HomeController extends GetxController {
     showDiceAnimation(0, false);
     await Future.delayed(const Duration(seconds: 2));
     Get.back();
+    //for specific player
     if (player.value == "f") {
+      //show diceanimation
       final random = Random();
       var adder = 1 + random.nextInt(6 - 1 + 1);
+      showDiceAnimation(adder, false);
+      await Future.delayed(const Duration(milliseconds: 800));
+      Get.back();
       if ((diceConditionf.value + adder) <= 100) {
-        diceConditionf.value = diceConditionf.value + adder;
+        for (var i = 0; i < adder; i++) {
+          diceConditionf.value++;
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
       }
-      showDiceAnimation(adder, true);
-      if (adder != 6) {
-        player.value = "m";
-      }
+      //checking is there any ladder or snake
+      snakeOrladder();
+      //check is is a punishment number
       if (listNumberpunishment.contains(diceConditionf.value)) {
         getPunishment();
       }
+      //check is it 6 to roll again
+      if (adder != 6) {
+        player.value = "m";
+      }
     } else {
+      //show diceanimation
       final random = Random();
       var adder = 1 + random.nextInt(6 - 1 + 1);
+      showDiceAnimation(adder, false);
+      await Future.delayed(const Duration(milliseconds: 800));
+      Get.back();
       if ((diceCondition.value + adder) <= 100) {
-        diceCondition.value = diceCondition.value + adder;
+        for (var i = 0; i < adder; i++) {
+          diceCondition.value++;
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
+        // diceCondition.value = diceCondition.value + adder;
       }
-      showDiceAnimation(adder, true);
-      if (adder != 6) {
-        player.value = "f";
-      }
+      //checking is there any ladder or snake
+      snakeOrladder();
+      //check is is a punishment number
       if (listNumberpunishment.contains(diceCondition.value)) {
         getPunishment();
+      }
+      //check is it 6 to roll again
+      if (adder != 6) {
+        player.value = "f";
       }
     }
   }
