@@ -43,9 +43,9 @@ class CreatePunishment extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: const Text(
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
                           "Hukuman",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -87,7 +87,7 @@ class CreatePunishment extends StatelessWidget {
                         _homeController.createPunishment(
                             _homeController.punish.value.text, "f");
                       },
-                      child: Container(
+                      child: SizedBox(
                           width: 0.5.sw,
                           height: 0.075.sh,
                           child: Image.asset(
@@ -103,7 +103,7 @@ class CreatePunishment extends StatelessWidget {
                         _homeController.createPunishment(
                             _homeController.punish.value.text, "m");
                       },
-                      child: Container(
+                      child: SizedBox(
                           width: 0.5.sw,
                           height: 0.07.sh,
                           child: Image.asset(
@@ -118,7 +118,7 @@ class CreatePunishment extends StatelessWidget {
                       onTap: () {
                         _homeController.resetPunishment();
                       },
-                      child: Container(
+                      child: SizedBox(
                           width: 0.5.sw,
                           height: 0.08.sh,
                           child: Image.asset(

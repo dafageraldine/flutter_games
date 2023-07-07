@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:games/controller/snakeGamecontroller.dart';
-import 'package:games/snakegame/createpunishment.dart';
+import 'package:games/widgets/createpunishment.dart';
 import 'package:games/widgets/fiveboxinrowabove.dart';
 import 'package:games/widgets/fiveboxinrowdown.dart';
 import 'package:get/get.dart';
