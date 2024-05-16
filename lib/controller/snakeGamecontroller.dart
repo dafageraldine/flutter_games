@@ -240,4 +240,79 @@ class SnakeGameController extends GetxController {
       isPause.value = 0;
     }
   }
+
+  generateRowNumber() {
+    int length = 6;
+
+    // Creating a 2D array
+    List<List<int>> twoDArray =
+        List.generate(6, (index) => List<int>.filled(6, 0));
+
+    //fill array with 1 to n(length)
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        twoDArray[i][j] = j + 1;
+      }
+    }
+
+    //randomize array
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        var curNum = twoDArray[i][j];
+        var randIndex = getRandomNumberInRangeExcept(0, length - 1, j);
+
+        twoDArray[i][j] = twoDArray[i][randIndex];
+        twoDArray[i][randIndex] = curNum;
+      }
+    }
+
+    for (var i = 1; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        List<int> tempdatav = <int>[];
+        List<int> tempdataH = <int>[];
+
+        //get cant be same vertical
+        for (var k = 0; k < i; k++) {
+          tempdatav.add(twoDArray[k][j]);
+        }
+
+        // print("tidak boleh ada di vertical");
+        // print(tempdatav);
+        // print("\n");
+
+        //get cant be same in group
+
+        // int start = 0;
+        // int end = length;
+        // if (k == i) {}
+        // for (var l = start; l < end; l++) {
+        //   if (i == k && j == l) {
+        //     break;
+        //   } else {
+        //     tempdata.add(twoDArray[k][l]);
+        //   }
+        // }
+
+        ///
+      }
+    }
+
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < length; j++) {
+        print(twoDArray[i][j]);
+      }
+      print("\n");
+    }
+  }
+
+  int getRandomNumberInRangeExcept(int min, int max, int exclude) {
+    Random random = Random();
+    int randomNumber;
+
+    do {
+      randomNumber = min + random.nextInt(max + 1 - min);
+    } while (randomNumber == exclude);
+
+    return randomNumber;
+  }
 }

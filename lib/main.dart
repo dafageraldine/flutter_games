@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:games/game/snakeGame.dart';
+import 'package:games/dashoard.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -18,6 +18,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home: snakeGame());
+        home: Dashoard());
   }
 }
