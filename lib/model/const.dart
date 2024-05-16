@@ -9,3 +9,4 @@ Color sucs = const Color.fromRGBO(76, 175, 80, 1);
 Color sucswithopacity = const Color.fromRGBO(76, 175, 80, 0.3);
 Color warn = const Color.fromRGBO(255, 235, 59, 1);
 Color warnwithopacity = const Color.fromRGBO(255, 235, 59, 0.3);
+Color lines = Colors.grey.shade700;

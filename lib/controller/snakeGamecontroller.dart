@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:games/game/sudokuboard.dart';
 import 'package:games/model/laddersnake.dart';
 import 'package:games/widgets/diceroller.dart';
 import 'package:games/widgets/punishmentdialog.dart';
@@ -66,6 +67,7 @@ class SnakeGameController extends GetxController {
     LadderSnake(78, 72),
     LadderSnake(99, 89)
   ];
+  List<List<dynamic>> sudokunumber = [];
 
   void showDiceAnimation(int dice, bool bools) {
     Get.dialog(
@@ -276,33 +278,60 @@ class SnakeGameController extends GetxController {
           tempdatav.add(twoDArray[k][j]);
         }
 
-        // print("tidak boleh ada di vertical");
-        // print(tempdatav);
-        // print("\n");
+        print("tidak boleh ada di vertical");
+        print(tempdatav);
 
         //get cant be same in group
+        if (i % 2 == 1) {
+          int start = 0;
+          int end = length;
+          double multiplier = length / 3;
+          for (var n = 1; n <= multiplier; n++) {
+            if (n * 3 > j) {
+              start = (n * 3) - 3;
+              end = (n * 3);
+              break;
+            }
+          }
 
-        // int start = 0;
-        // int end = length;
-        // if (k == i) {}
-        // for (var l = start; l < end; l++) {
-        //   if (i == k && j == l) {
-        //     break;
-        //   } else {
-        //     tempdata.add(twoDArray[k][l]);
-        //   }
-        // }
+          for (var l = i - 1; l < i; l++) {
+            for (var m = start; m < end; m++) {
+              tempdataH.add(twoDArray[l][m]);
+            }
+          }
+          print("tidak boleh ada di horizontal");
+          print(tempdataH);
+        }
 
-        ///
+        //moving index
+        for (var z = j; z < length; z++) {
+          if (tempdatav.isNotEmpty && tempdataH.isEmpty) {
+            if (tempdatav.indexWhere((idx) => idx == twoDArray[i][z]) == -1) {
+              var currData = twoDArray[i][j];
+              print("curdata $currData");
+              twoDArray[i][j] = twoDArray[i][z];
+              print("swapper ${twoDArray[i][z]}");
+              twoDArray[i][z] = currData;
+              break;
+            }
+          } else if (tempdatav.isNotEmpty && tempdataH.isNotEmpty) {
+            if (tempdatav.indexWhere((idx) => idx == twoDArray[i][z]) == -1 &&
+                tempdataH.indexWhere((idx) => idx == twoDArray[i][z]) == -1) {
+              var currData = twoDArray[i][j];
+              print("curdata $currData");
+              twoDArray[i][j] = twoDArray[i][z];
+              print("swapper ${twoDArray[i][z]}");
+              twoDArray[i][z] = currData;
+              break;
+            }
+          }
+        }
       }
     }
 
-    for (var i = 0; i < length; i++) {
-      for (var j = 0; j < length; j++) {
-        print(twoDArray[i][j]);
-      }
-      print("\n");
-    }
+    sudokunumber.clear();
+    sudokunumber.addAll(twoDArray);
+    Get.to(Sudokuboard());
   }
 
   int getRandomNumberInRangeExcept(int min, int max, int exclude) {
