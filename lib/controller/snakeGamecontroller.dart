@@ -69,6 +69,7 @@ class SnakeGameController extends GetxController {
   ];
   List<List<dynamic>> sudokunumber = [];
   List<List<dynamic>> sudokunumbertemp = [];
+  List<List<dynamic>> sudokunumberhide = [];
   List<int> currdatav = <int>[];
   List<int> currdataH = <int>[];
   List<int> tempdatav = <int>[];
@@ -76,6 +77,8 @@ class SnakeGameController extends GetxController {
   RxInt donegenerate = 0.obs;
   int lengthCol = 6;
   int scramblingdone = 0;
+  var listhidden = [];
+  var listhiddencopy = [];
 
   void showDiceAnimation(int dice, bool bools) {
     Get.dialog(
@@ -281,11 +284,59 @@ class SnakeGameController extends GetxController {
       sudokunumbertemp.clear();
       sudokunumbertemp.addAll(twoDArray);
     } while (scramblingdone == 0);
-
+    gethiddenlist();
     sudokunumber.clear();
     sudokunumber.addAll(sudokunumbertemp);
     scramblingdone = 0;
     donegenerate.value = 1;
+  }
+
+  gethiddenlist() {
+    listhidden.clear();
+    listhiddencopy.clear();
+    var summst = 0;
+    for (var i = 0; i < lengthCol; i++) {
+      summst = summst + (i + 1);
+    }
+    for (var j = 0; j < lengthCol; j++) {
+      num sum = 0;
+      for (var i = 0; i < listhidden.length; i++) {
+        sum = sum + listhidden[i];
+      }
+      var sisa = summst - sum!;
+      if (sisa < lengthCol) {
+        listhidden.add(sisa);
+        listhiddencopy.add(0);
+      } else {
+        var rng = Random();
+        listhidden.add(rng.nextInt(6));
+        listhiddencopy.add(0);
+      }
+    }
+    sudokunumberhide.clear();
+    sudokunumberhide.addAll(sudokunumber);
+    for (var j = 0; j < lengthCol; j++) {
+      for (var m = 0; m < lengthCol; m++) {
+        var hiddenlist = listhidden[j];
+        var sisacol = lengthCol - (m + 1);
+        var sisahide = hiddenlist - listhiddencopy[j];
+        if (listhiddencopy[j] < hiddenlist) {
+          if (sisacol > sisahide) {
+            var rng = Random();
+            var dt = rng.nextInt(2);
+            if (dt == 1) {
+              sudokunumberhide[j][m] = 0;
+              var temp = listhiddencopy[j];
+              listhiddencopy[j] = temp + 1;
+            }
+          } else if (sisacol == sisahide) {
+            sudokunumberhide[j][m] = 0;
+            var temp = listhiddencopy[j];
+            listhiddencopy[j] = temp + 1;
+          }
+        }
+      }
+    }
   }
 
   scrambler(List<List<int>> twoDArray) {
