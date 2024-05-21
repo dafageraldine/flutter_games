@@ -313,8 +313,10 @@ class SnakeGameController extends GetxController {
         listhiddencopy.add(0);
       }
     }
+    List<List<int>> twoDArray =
+        List.generate(6, (index) => List<int>.filled(6, 0));
     sudokunumberhide.clear();
-    sudokunumberhide.addAll(sudokunumber);
+    sudokunumberhide.addAll(twoDArray);
     for (var j = 0; j < lengthCol; j++) {
       for (var m = 0; m < lengthCol; m++) {
         var hiddenlist = listhidden[j];
