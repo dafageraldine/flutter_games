@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:games/controller/snakeGamecontroller.dart';
 import 'package:games/game/snakeGame.dart';
+import 'package:games/game/sudokuboard.dart';
 import 'package:get/get.dart';
 
 class Dashoard extends StatelessWidget {
@@ -39,8 +40,9 @@ class Dashoard extends StatelessWidget {
             padding: EdgeInsets.only(left: 0.2.sw, right: 0.2.sw, top: 0.02.sh),
             child: Center(
               child: InkWell(
-                onTap: () {
-                  _controller.generateRowNumber();
+                onTap: () async {
+                  await _controller.generateRowNumber();
+                  Get.to(Sudokuboard());
                 },
                 child: Container(
                   color: Colors.teal.shade500,

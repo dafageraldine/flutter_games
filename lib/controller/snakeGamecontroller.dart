@@ -68,6 +68,14 @@ class SnakeGameController extends GetxController {
     LadderSnake(99, 89)
   ];
   List<List<dynamic>> sudokunumber = [];
+  List<List<dynamic>> sudokunumbertemp = [];
+  List<int> currdatav = <int>[];
+  List<int> currdataH = <int>[];
+  List<int> tempdatav = <int>[];
+  List<int> tempdataH = <int>[];
+  RxInt donegenerate = 0.obs;
+  int lengthCol = 6;
+  int scramblingdone = 0;
 
   void showDiceAnimation(int dice, bool bools) {
     Get.dialog(
@@ -244,48 +252,58 @@ class SnakeGameController extends GetxController {
   }
 
   generateRowNumber() {
-    int length = 6;
+    donegenerate.value = 0;
 
-    // Creating a 2D array
-    List<List<int>> twoDArray =
-        List.generate(6, (index) => List<int>.filled(6, 0));
+    do {
+      // Creating a 2D array
+      List<List<int>> twoDArray =
+          List.generate(6, (index) => List<int>.filled(6, 0));
 
-    //fill array with 1 to n(length)
-    for (var i = 0; i < length; i++) {
-      for (var j = 0; j < length; j++) {
-        twoDArray[i][j] = j + 1;
+      //fill array with 1 to n(length)
+      for (var i = 0; i < lengthCol; i++) {
+        for (var j = 0; j < lengthCol; j++) {
+          twoDArray[i][j] = j + 1;
+        }
       }
-    }
 
-    //randomize array
-    for (var i = 0; i < length; i++) {
-      for (var j = 0; j < length; j++) {
-        var curNum = twoDArray[i][j];
-        var randIndex = getRandomNumberInRangeExcept(0, length - 1, j);
+      //randomize array
+      for (var i = 0; i < lengthCol; i++) {
+        for (var j = 0; j < lengthCol; j++) {
+          var curNum = twoDArray[i][j];
+          var randIndex = getRandomNumberInRangeExcept(0, lengthCol - 1, j);
 
-        twoDArray[i][j] = twoDArray[i][randIndex];
-        twoDArray[i][randIndex] = curNum;
+          twoDArray[i][j] = twoDArray[i][randIndex];
+          twoDArray[i][randIndex] = curNum;
+        }
       }
-    }
+      scrambler(twoDArray);
+      checker(twoDArray);
+      sudokunumbertemp.clear();
+      sudokunumbertemp.addAll(twoDArray);
+    } while (scramblingdone == 0);
 
-    for (var i = 1; i < length; i++) {
-      for (var j = 0; j < length; j++) {
-        List<int> tempdatav = <int>[];
-        List<int> tempdataH = <int>[];
+    sudokunumber.clear();
+    sudokunumber.addAll(sudokunumbertemp);
+    scramblingdone = 0;
+    donegenerate.value = 1;
+  }
+
+  scrambler(List<List<int>> twoDArray) {
+    for (var i = 1; i < lengthCol; i++) {
+      for (var j = 0; j < lengthCol; j++) {
+        currdatav.clear();
+        currdataH.clear();
 
         //get cant be same vertical
         for (var k = 0; k < i; k++) {
-          tempdatav.add(twoDArray[k][j]);
+          currdatav.add(twoDArray[k][j]);
         }
-
-        print("tidak boleh ada di vertical");
-        print(tempdatav);
 
         //get cant be same in group
         if (i % 2 == 1) {
           int start = 0;
-          int end = length;
-          double multiplier = length / 3;
+          int end = lengthCol;
+          double multiplier = lengthCol / 3;
           for (var n = 1; n <= multiplier; n++) {
             if (n * 3 > j) {
               start = (n * 3) - 3;
@@ -296,42 +314,137 @@ class SnakeGameController extends GetxController {
 
           for (var l = i - 1; l < i; l++) {
             for (var m = start; m < end; m++) {
-              tempdataH.add(twoDArray[l][m]);
+              currdataH.add(twoDArray[l][m]);
             }
           }
-          print("tidak boleh ada di horizontal");
-          print(tempdataH);
         }
 
         //moving index
-        for (var z = j; z < length; z++) {
-          if (tempdatav.isNotEmpty && tempdataH.isEmpty) {
-            if (tempdatav.indexWhere((idx) => idx == twoDArray[i][z]) == -1) {
-              var currData = twoDArray[i][j];
-              print("curdata $currData");
+        int flag = 0;
+        var currData = twoDArray[i][j];
+        for (var z = j; z < lengthCol; z++) {
+          if (currdatav.isNotEmpty && currdataH.isEmpty) {
+            if (currdatav.indexWhere((idx) => idx == twoDArray[i][z]) == -1) {
               twoDArray[i][j] = twoDArray[i][z];
-              print("swapper ${twoDArray[i][z]}");
               twoDArray[i][z] = currData;
+              flag = 1;
               break;
             }
-          } else if (tempdatav.isNotEmpty && tempdataH.isNotEmpty) {
-            if (tempdatav.indexWhere((idx) => idx == twoDArray[i][z]) == -1 &&
-                tempdataH.indexWhere((idx) => idx == twoDArray[i][z]) == -1) {
-              var currData = twoDArray[i][j];
-              print("curdata $currData");
+          } else if (currdatav.isNotEmpty && currdataH.isNotEmpty) {
+            if (currdatav.indexWhere((idx) => idx == twoDArray[i][z]) == -1 &&
+                currdataH.indexWhere((idx) => idx == twoDArray[i][z]) == -1) {
               twoDArray[i][j] = twoDArray[i][z];
-              print("swapper ${twoDArray[i][z]}");
               twoDArray[i][z] = currData;
+              flag = 1;
               break;
+            }
+          }
+        }
+        if (flag == 0) {
+          for (var r = 0; r < lengthCol; r++) {
+            if (r == j) {
+            } else {
+              tempdataH.clear();
+              tempdatav.clear();
+              //fill tempdatav
+              for (var k = 0; k < i; k++) {
+                tempdatav.add(twoDArray[k][r]);
+              }
+
+              //fill tempdatah
+              if (i % 2 == 1) {
+                int start = 0;
+                int end = lengthCol;
+                double multiplier = lengthCol / 3;
+                for (var n = 1; n <= multiplier; n++) {
+                  if (n * 3 > r) {
+                    start = (n * 3) - 3;
+                    end = (n * 3);
+                    break;
+                  }
+                }
+
+                for (var l = i - 1; l < i; l++) {
+                  for (var m = start; m < end; m++) {
+                    tempdataH.add(twoDArray[l][m]);
+                  }
+                }
+              }
+
+              //swapping
+              if (tempdatav.isNotEmpty && tempdataH.isEmpty) {
+                if (tempdatav.indexWhere((idx) => idx == currData) == -1) {
+                  //currdata
+                  if (currdatav.isNotEmpty && currdataH.isEmpty) {
+                    if (currdatav.indexWhere((idx) => idx == twoDArray[i][r]) ==
+                        -1) {
+                      twoDArray[i][j] = twoDArray[i][r];
+                      twoDArray[i][r] = currData;
+                      break;
+                    }
+                  } else if (currdatav.isNotEmpty && currdataH.isNotEmpty) {
+                    if (currdatav.indexWhere((idx) => idx == twoDArray[i][r]) ==
+                            -1 &&
+                        currdataH.indexWhere((idx) => idx == twoDArray[i][r]) ==
+                            -1) {
+                      twoDArray[i][j] = twoDArray[i][r];
+                      twoDArray[i][r] = currData;
+                      break;
+                    }
+                  }
+                  //end
+                }
+              } else if (tempdatav.isNotEmpty && tempdataH.isEmpty) {
+                if (tempdatav.indexWhere((idx) => idx == currData) == -1 &&
+                    tempdataH.indexWhere((idx) => idx == currData) == -1) {
+                  //currdata
+                  if (currdatav.isNotEmpty && currdataH.isEmpty) {
+                    if (currdatav.indexWhere((idx) => idx == twoDArray[i][r]) ==
+                        -1) {
+                      twoDArray[i][j] = twoDArray[i][r];
+                      twoDArray[i][r] = currData;
+                      break;
+                    }
+                  } else if (currdatav.isNotEmpty && currdataH.isNotEmpty) {
+                    if (currdatav.indexWhere((idx) => idx == twoDArray[i][r]) ==
+                            -1 &&
+                        currdataH.indexWhere((idx) => idx == twoDArray[i][r]) ==
+                            -1) {
+                      twoDArray[i][j] = twoDArray[i][r];
+                      twoDArray[i][r] = currData;
+                      break;
+                    }
+                  }
+                  //end
+                }
+              }
             }
           }
         }
       }
     }
+  }
 
-    sudokunumber.clear();
-    sudokunumber.addAll(twoDArray);
-    Get.to(Sudokuboard());
+  checker(List<List<int>> arr) {
+    var ctr = 0;
+    var summst = 0;
+    for (var i = 0; i < lengthCol; i++) {
+      summst = summst + (i + 1);
+    }
+    var sum = 0;
+    for (var i = 0; i < lengthCol; i++) {
+      sum = 0;
+      for (var k = 0; k < lengthCol; k++) {
+        sum = sum + arr[k][i];
+      }
+      if (sum != summst) {
+        ctr = -1;
+        break;
+      }
+    }
+    if (ctr == 0) {
+      scramblingdone = 1;
+    }
   }
 
   int getRandomNumberInRangeExcept(int min, int max, int exclude) {
